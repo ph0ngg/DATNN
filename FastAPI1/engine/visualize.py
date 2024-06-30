@@ -13,15 +13,26 @@ def generate_color():
 
 def visualize():
   n = 100
-  color_dict = color_dict = {i: generate_color() for i in range(1, n + 1)}
-
+  #color_dict = color_dict = {i: generate_color() for i in range(1, n + 1)}
+  color_dict = {
+     1: (229, 31, 31),
+     2: (32, 228, 18),
+     3: (18, 95, 228),
+     4: (246, 232, 27),
+     5: (162, 37, 246),
+     6: (246, 37, 169),
+     7: (0, 0, 0),
+     8: (189, 233, 45),
+     9: (99, 55, 44), 
+     10: (12, 12, 100)
+  }
   #-------------
   count_frame = 0
-  for cam in sorted(os.listdir('D:\\PhongNghiem\\FastAPI1\\upload_folder')):
+  for cam in sorted(os.listdir('./upload_folder')):
     #if cam[-1] == 'i':
-      video_path = os.path.join('D:\\PhongNghiem\\FastAPI1\\upload_folder', cam)
+      video_path = os.path.join('./upload_folder', cam)
 
-      f = open(f'D:\PhongNghiem\FastAPI1\\result\\result_txt\{cam[:-4]}_new.txt', 'r')
+      f = open(f'./result/result_txt\{cam[:-4]}_new.txt', 'r')
       my_dictt = {}
       lines = f.readlines()
       for line in lines:
@@ -31,7 +42,7 @@ def visualize():
           else:
             my_dictt[x[0]].append((x[1], x[2], x[3], x[4], x[5]))
       video = cv2.VideoCapture(video_path)
-      save_path = f'D:\PhongNghiem\FastAPI1\\result\\result_video\{cam[:-4]}.mp4'
+      save_path = f'./result/result_video\{cam[:-4]}.mp4'
 
       fourcc = int(video.get(cv2.CAP_PROP_FOURCC))
       vid_width, vid_height = int(video.get(3)), int(video.get(4))

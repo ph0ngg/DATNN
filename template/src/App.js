@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/home';
 import MCT from './components/mct';
 import SCT from './components/sct';
+import MCT_RT from './components/mct_rt'
 import './App.css';
 
 const App = () => {
@@ -23,6 +24,9 @@ const App = () => {
               <li>
                 <Link to="/sct">SCT</Link>
               </li>
+              <li>
+                <Link to="/mct_rt">MCT_RT</Link>
+              </li>
             </ul>
           </nav>
         )}
@@ -33,6 +37,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/mct" element={<MCT />} />
           <Route path="/sct" element={<SCT />} />
+          <Route path='/mct_rt' element={<MCT_RT />} />
         </Routes>
       </div>
     </Router>

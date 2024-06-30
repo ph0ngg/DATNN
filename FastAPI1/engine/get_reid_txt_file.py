@@ -5,11 +5,8 @@ from pymongo import MongoClient
 
 def get_reid_txt_file():
 
-    MONGO_HOST = "192.168.1.220"
-    MONGO_PORT = 27017
     MONGO_DB = "mydb"
-    MONGO_USER = "awlvn"
-    MONGO_PASS = urllib.parse.quote_plus("123456a@")
+
 
     url = "mongodb://localhost:27017/"
     client = MongoClient(url)
@@ -17,10 +14,10 @@ def get_reid_txt_file():
     
     global_id = db['gid']
     #Creating a pymongo client
-    for video in os.listdir('D:\PhongNghiem\FastAPI1\\result\\result_txt'):
+    for video in os.listdir('./result/result_txt'):
         if video[-5] != 'w':
-            f = open('D:\PhongNghiem\FastAPI1\\result\\result_txt\\' + video[:-4] + '.txt', 'r')
-            f2 = open('D:\PhongNghiem\FastAPI1\\result\\result_txt\\' + video[:-4] +'_new.txt', 'w')
+            f = open('./result/result_txt/' + video[:-4] + '.txt', 'r')
+            f2 = open('./result/result_txt/' + video[:-4] +'_new.txt', 'w')
             lines = f.readlines()
             for line in lines:
                 try:

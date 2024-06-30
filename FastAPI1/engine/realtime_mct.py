@@ -112,6 +112,7 @@ def score(bbox, kpt):
     return bbox_ratio_score*bbox_size_score + conf
 
 def tracking(path):
+    print(path)
     args = default_argument_parser().parse_args()
     cfg = setup(args)
     emb_model = build_model(cfg)
@@ -133,7 +134,7 @@ def tracking(path):
     emb = {}
     start_times = {}
     count = 0
-    txt_folder = './FastAPI1/result/result_txt'
+    txt_folder = './result/result_txt'
     videos = []
     txt_files = []
     current_id = 0
@@ -149,6 +150,7 @@ def tracking(path):
     flag = True
     time1 = time.time()
     while flag:
+        frames = []
         if count%3 ==0:
             for i, video in enumerate(videos):
                 ret, img_show = video.read()
@@ -242,7 +244,7 @@ def tracking(path):
                     x1, y1, x2, y2 = int(coords[0]), int(coords[1]), int(coords[2]), int(coords[3])
             #         #print(coords[4])
                     name_idx = int(coords[4])-1
-            #         name = 'ID: {}'.format(str(name_idx))
+                    name = 'ID: {}'.format(str(name_idx))
             #         color1 = (255, 0, 0)
             #         color2 = (0, 0, 255)
             #         random.seed(int(coords[4]))
@@ -251,6 +253,13 @@ def tracking(path):
                     height = y2 - y1
                     files[i].write(str(count) + ', ' +str(name_idx) +', '+ str(x1) + ', '+ str(y1) + ', ' + str(width) + ', '+ str(height)+ ', 1, 1, 1')
                     files[i].write('\n')
+                    random.seed(int(coords[4]))
+                    color = (255*random.random(), 255*random.random(), 255*random.random())
+                    cv2.rectangle(img_show, (x1, y1), (x2, y2), color, 1)
+                    cv2.putText(img_show, name, (x2, y2-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+                    _, buffer = cv2.imencode('.jpg', img_show)
+                    frame_bytes = buffer.tobytes()
+                    frames.append(frame_bytes)
             #   #      ----------------------------------------------------------------
             #         kpt = keypoints[j]
             #         cv2.rectangle(img_show, (x1, y1), (x2, y2), color, 1)
@@ -259,15 +268,17 @@ def tracking(path):
               except Exception as e:
                 if str(e) != "'NoneType' object has no attribute 'cpu'":
                     traceback.print_exc()
-
+                _, buffer = cv2.imencode('.jpg', img_show)
+                frame_bytes = buffer.tobytes()
+                frames.append(frame_bytes)
                 continue
         count += 1
         print(count)
-
+        return frames
+    return 0
     for video in videos:
         video.release()
     for file in files:
         file.close()
     time2 = time.time()
-    print('FPS: ', count/(time2-time1))
-tracking(r'./FastAPI1/upload_folder')
+#tracking(r'./FastAPI1/upload_folder')

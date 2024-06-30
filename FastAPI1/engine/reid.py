@@ -83,9 +83,9 @@ def reid():
                 this_same_view = same_view
 
         if this_same_view == True:
-            emb_threshold = 0.4
+            emb_threshold = 0.28
         else:
-            emb_threshold = 0.52
+            emb_threshold = 0.5
         if min_dist < emb_threshold:
             gallery[this_gid][1] = start_time
             gallery[this_gid][2] = end_time

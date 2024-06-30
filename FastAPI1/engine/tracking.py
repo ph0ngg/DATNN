@@ -132,12 +132,12 @@ def tracking(path):
     emb = {}
     start_times = {}
     count = 0
-    txt_folder = './FastAPI1/result/result_txt'
+    txt_folder = './result/result_txt'
 
     for filename in sorted((path)):
         print(filename)
         video_path = filename
-        video_name = filename.split('/')[-1][:-4]
+        video_name = filename.split('\\')[-1][:-4]
         txt_file = os.path.join(txt_folder, video_name + '.txt')
         video = cv2.VideoCapture(video_path)
         f = open(txt_file, 'w')
