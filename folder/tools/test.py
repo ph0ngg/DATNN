@@ -208,17 +208,12 @@ def main(args):
     cfg = setup(args)
     emb_model = build_model(cfg)
     emb_threshold = 0.35
-    print(1)
-    MONGO_HOST = "192.168.1.220"
-    MONGO_PORT = 27017
-    MONGO_DB = "mydb"
-    MONGO_USER = "awlvn"
-    MONGO_PASS = urllib.parse.quote_plus("123456a@")
-
     #Creating a pymongo client
-    url = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format(MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_DB)
+    #url = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format(MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_DB)
+    url = 'mongodb://localhost:27017/'
     client = MongoClient(url)
-    db = client[MONGO_DB]
+    db = client['mydb']
+
     emb_db = db['Campus4']
     state_dict = torch.load('/home/phongnn/test/test/fast-reid/tools/model_loss/khongconv5_lossview0,5.pth')
 

@@ -2,21 +2,14 @@ import urllib.parse
 import os
 from pymongo import MongoClient
 
-MONGO_HOST = "192.168.1.220"
-MONGO_PORT = 27017
-MONGO_DB = "mydb"
-MONGO_USER = "awlvn"
-MONGO_PASS = urllib.parse.quote_plus("123456a@")
-
-url = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format(MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_DB)
+#url = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format(MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_DB)
+url = 'mongodb://localhost:27017/'
 client = MongoClient(url)
-db = client[MONGO_DB]
+db = client['mydb']
 
 global_id = db['Campus4_gid']
 #Creating a pymongo client
-url = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format(MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_DB)
-client = MongoClient(url)
-db = client[MONGO_DB]
+#url = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format(MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_DB)
 
 for cam in os.listdir('/home/phongnn/test/test/Campus4/result_reid'):
     if cam[-5] != 'w':
